@@ -21,9 +21,14 @@ namespace TelegramBot.Controllers
         private static string _Top = "/top";
         private long _currentChatID;
         private long _currentUserID;
-        private string _currentCommandText;
+        private string _currentCommandText { get; }
         private string _currentUsername;
         private Message _currentMessage;                           // for database methods.
+
+        public string CurrentText
+        { 
+            get => _currentCommandText; 
+        }
 
         public CommandHandler(Message message) 
         {

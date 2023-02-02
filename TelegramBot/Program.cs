@@ -13,11 +13,10 @@ namespace TelegramBot
 {
     internal class Program
     {
-        //private static TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
+        private static TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
 
         private static void Main(string[] args)
         {
-            TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
             Console.WriteLine("BOT is working!");
             client.StartReceiving(HandleUpdate, HandleErrors);
             Console.ReadLine();
@@ -37,11 +36,15 @@ namespace TelegramBot
 
         async private static Task HandleUpdate(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
-            if(IsUpdateCorrect(update))
+            if (IsUpdateCorrect(update) && botClient != null)
             {
                 ServerNotification(update.Message);                                     // message in console.
                 CommandHandler commandHandler = new CommandHandler(update.Message);
-                await commandHandler.ProcessCommand(botClient);
+
+                if (IsCurrentTextCorrect(commandHandler.CurrentText))
+                {
+                    await commandHandler.ProcessCommand(botClient);
+                }
             }
             return;
         }
@@ -71,6 +74,11 @@ namespace TelegramBot
 
             return message.Type.Equals(permissedMessageType) && message.Text.StartsWith("/") && message.Chat.Type.Equals(permissedChatTypeFirst)
                || message.Chat.Type.Equals(permissedChatTypeSecond) ? true : false;
+        }
+
+        private static bool IsCurrentTextCorrect(string text)
+        {
+            return text != null ? true : false;
         }
     }
 }
