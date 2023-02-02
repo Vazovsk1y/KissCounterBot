@@ -2,6 +2,7 @@
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using TelegramBot.Resourses;
+using System;
 
 namespace TelegramBot.Controllers
 {
@@ -30,18 +31,25 @@ namespace TelegramBot.Controllers
             _currentUserID = message.From.Id;
             _currentCommandText = message.Text;
             _currentMessage = message;
-            _currentUsername = message.From.Username ?? message.From.FirstName ?? string.Empty; 
+            _currentUsername = message.From.Username ?? message.From.FirstName ?? string.Empty;
         }
 
         async public Task ProcessCommand(ITelegramBotClient botClient)
         {
             // if i will have more than 3 command it would be wise to rewrite with another construction.
-            if (_currentCommandText.Contains(_Join))
-                await JoinHandler(botClient);
-            else if (_currentCommandText.Contains(_Kiss))
-                await KissHandler(botClient);
-            else if (_currentCommandText.Contains(_Top))
-                await TopHandler(botClient);
+            try
+            {
+                if (_currentCommandText.Contains(_Join))
+                    await JoinHandler(botClient);
+                else if (_currentCommandText.Contains(_Kiss))
+                    await KissHandler(botClient);
+                else if (_currentCommandText.Contains(_Top))
+                    await TopHandler(botClient);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error: {ex}");
+            }
         }
 
         async private Task TopHandler(ITelegramBotClient botClient)
