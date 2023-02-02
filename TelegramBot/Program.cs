@@ -7,15 +7,17 @@ using System.Threading;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Exceptions;
 using TelegramBot.Models;
+using System.Linq;
 
 namespace TelegramBot
 {
     internal class Program
     {
-        private static TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
+        //private static TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
 
         private static void Main(string[] args)
         {
+            TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
             Console.WriteLine("BOT is working!");
             client.StartReceiving(HandleUpdate, HandleErrors);
             Console.ReadLine();
@@ -59,7 +61,6 @@ namespace TelegramBot
                from groups or supergroups and
                if update was not a message bot doing nothing. 
             */
-
             if (!update.Type.Equals(UpdateType.Message))       
                 return false;
 
