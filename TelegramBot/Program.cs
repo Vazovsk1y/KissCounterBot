@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace TelegramBot
 {
-    internal class Program
+    internal /*public*/ class Program         // public if want to test
     {
         private static TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
 
@@ -53,7 +53,7 @@ namespace TelegramBot
             Console.WriteLine(serverMessage);
         }
 
-        private static bool IsUpdateCorrectType(Update update)
+        private /*public */static bool IsUpdateCorrectType(Update update)  // public if want to test
         {
             /* 
                Bot works only with commands that were sent 
@@ -68,8 +68,8 @@ namespace TelegramBot
             var permissedChatTypeFirst = ChatType.Supergroup;
             var permissedChatTypeSecond = ChatType.Group;
 
-            return message.Type.Equals(permissedMessageType) && message.Text.StartsWith("/") && (message.Chat.Type.Equals(permissedChatTypeFirst)
-               || message.Chat.Type.Equals(permissedChatTypeSecond)) ? true : false;
+            return message.Type.Equals(permissedMessageType) && message.Text.StartsWith("/") 
+               && (message.Chat.Type.Equals(permissedChatTypeFirst) || message.Chat.Type.Equals(permissedChatTypeSecond)) ? true : false;
         }
     }
 }
