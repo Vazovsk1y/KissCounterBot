@@ -68,8 +68,8 @@ namespace TelegramBot
             var permissedChatTypeFirst = ChatType.Supergroup;
             var permissedChatTypeSecond = ChatType.Group;
 
-            return message.Type.Equals(permissedMessageType) && message.Text.StartsWith("/") && message.Chat.Type.Equals(permissedChatTypeFirst)
-               || message.Chat.Type.Equals(permissedChatTypeSecond) ? true : false;
+            return message.Type.Equals(permissedMessageType) && message.Text.StartsWith("/") && (message.Chat.Type.Equals(permissedChatTypeFirst)
+               || message.Chat.Type.Equals(permissedChatTypeSecond)) ? true : false;
         }
 
         private static bool IsCurrentTextCorrect(string text)
