@@ -71,10 +71,5 @@ namespace TelegramBot
             return message.Type.Equals(permissedMessageType) && message.Text.StartsWith("/") && (message.Chat.Type.Equals(permissedChatTypeFirst)
                || message.Chat.Type.Equals(permissedChatTypeSecond)) ? true : false;
         }
-
-        private static bool IsCurrentTextCorrect(string text)
-        {
-            return text != null ? true : false;
-        }
     }
 }
