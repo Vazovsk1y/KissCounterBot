@@ -36,15 +36,11 @@ namespace TelegramBot
 
         async private static Task HandleUpdate(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
-            if (IsUpdateCorrect(update) && botClient != null)
+            if (IsUpdateCorrectType(update))
             {
                 ServerNotification(update.Message);                                     // message in console.
                 CommandHandler commandHandler = new CommandHandler(update.Message);
-
-                if (IsCurrentTextCorrect(commandHandler.CurrentText))
-                {
-                    await commandHandler.ProcessCommand(botClient);
-                }
+                await commandHandler.ProcessCommand(botClient);
             }
             return;
         }
@@ -57,7 +53,7 @@ namespace TelegramBot
             Console.WriteLine(serverMessage);
         }
 
-        private static bool IsUpdateCorrect(Update update)
+        private static bool IsUpdateCorrectType(Update update)
         {
             /* 
                Bot works only with commands that were sent 
