@@ -6,7 +6,7 @@ using System;
 
 namespace TelegramBot.Controllers
 {
-    internal class CommandHandler
+    public class CommandHandler
     {
         /*
          If you will delete the bot from group he lose the acsess to the message
@@ -34,6 +34,11 @@ namespace TelegramBot.Controllers
             _currentUsername = message.From.Username ?? message.From.FirstName ?? string.Empty;
         }
 
+        /// <summary>
+        /// Method for commandhandler object that contains one overload bool method for unit-testing.
+        /// </summary>
+        /// <param name="botClient"></param>
+        /// <returns></returns>
         async public Task ProcessCommand(ITelegramBotClient botClient)
         {
             // if i will have more than 3 command it would be wise to rewrite with another construction.
@@ -51,6 +56,11 @@ namespace TelegramBot.Controllers
                 Console.WriteLine($"Error: {ex}");
             }
         }
+
+        // method for unit-test
+        public static bool ProcessCommand(string commandText) => commandText.StartsWith("/") 
+            && (commandText.Contains(_Join) || commandText.Contains(_Kiss)
+            || commandText.Contains(_Top)) ? true : false;
 
         async private Task TopHandler(ITelegramBotClient botClient)
         {

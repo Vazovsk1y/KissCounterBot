@@ -6,14 +6,12 @@ using Telegram.Bot.Types;
 using System.Threading;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Exceptions;
-using TelegramBot.Models;
-using System.Linq;
 
 namespace TelegramBot
 {
-    internal /*public*/ class Program         // public if want to test
+    public class Program        
     {
-        private static TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
+        private static TelegramBotClient client = new TelegramBotClient("test");
 
         private static void Main(string[] args)
         {
@@ -53,7 +51,7 @@ namespace TelegramBot
             Console.WriteLine(serverMessage);
         }
 
-        private /*public */static bool IsUpdateCorrectType(Update update)  // public if want to test
+        public static bool IsUpdateCorrectType(Update update)  
         {
             /* 
                Bot works only with commands that were sent 
