@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace TelegramBot
 {
-    internal /*public*/ class Program         // public if want to test
+    public class Program        
     {
         private static TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
 
@@ -53,7 +53,7 @@ namespace TelegramBot
             Console.WriteLine(serverMessage);
         }
 
-        private /*public */static bool IsUpdateCorrectType(Update update)  // public if want to test
+        public static bool IsUpdateCorrectType(Update update)  
         {
             /* 
                Bot works only with commands that were sent 
