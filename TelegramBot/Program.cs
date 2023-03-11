@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace TelegramBot
 {
-    internal class Program
+    public class Program        
     {
         private static TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
 
@@ -36,15 +36,11 @@ namespace TelegramBot
 
         async private static Task HandleUpdate(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
-            if (IsUpdateCorrect(update) && botClient != null)
+            if (IsUpdateCorrectType(update))
             {
                 ServerNotification(update.Message);                                     // message in console.
                 CommandHandler commandHandler = new CommandHandler(update.Message);
-
-                if (IsCurrentTextCorrect(commandHandler.CurrentText))
-                {
-                    await commandHandler.ProcessCommand(botClient);
-                }
+                await commandHandler.ProcessCommand(botClient);
             }
             return;
         }
@@ -57,7 +53,7 @@ namespace TelegramBot
             Console.WriteLine(serverMessage);
         }
 
-        private static bool IsUpdateCorrect(Update update)
+        public static bool IsUpdateCorrectType(Update update)  
         {
             /* 
                Bot works only with commands that were sent 
@@ -72,13 +68,8 @@ namespace TelegramBot
             var permissedChatTypeFirst = ChatType.Supergroup;
             var permissedChatTypeSecond = ChatType.Group;
 
-            return message.Type.Equals(permissedMessageType) && message.Text.StartsWith("/") && message.Chat.Type.Equals(permissedChatTypeFirst)
-               || message.Chat.Type.Equals(permissedChatTypeSecond) ? true : false;
-        }
-
-        private static bool IsCurrentTextCorrect(string text)
-        {
-            return text != null ? true : false;
+            return message.Type.Equals(permissedMessageType) && message.Text.StartsWith("/") 
+               && (message.Chat.Type.Equals(permissedChatTypeFirst) || message.Chat.Type.Equals(permissedChatTypeSecond)) ? true : false;
         }
     }
 }
