@@ -6,14 +6,14 @@ using Telegram.Bot.Types;
 using System.Threading;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Exceptions;
-using TelegramBot.Models;
+// using TelegramBot.Models;
 using System.Linq;
 
 namespace TelegramBot
 {
     public class Program        
     {
-        private static TelegramBotClient client = new TelegramBotClient(Configuration.BotToken);
+        private static TelegramBotClient client = new TelegramBotClient("your token");
 
         private static void Main(string[] args)
         {
